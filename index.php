@@ -15,5 +15,48 @@
       );
     }
 
+    if ( have_post() ) {
+
+      $i = 0;
+
+      while ( have_post() ) {
+        $i++;
+        if ( $i > 1 ) {
+          echo '<hr class="post-separator styled-separator is-style-wide section-inner" aria-hidden="true" />';
+        }
+        the_post();
+        echo '投稿が掲載されますよ';
+
+        get_template_part( 'template-parts/content', get_post_type() );
+
+      }
+    } elseif ( is_search() ) {
+      ?>
+
+      <div class="no-search-results-form section-inner thin">
+
+        <?php
+        get_search_form(
+          array(
+            'label' => __( 'search again', twentytwenty ),
+          )
+        );
+        ?>
+      
+      </div><!-- .no-search-results -->
+
+      <?php
+    } else {
+      echo '投稿はありませんよ';
+    }
+
     ?>
-</main>
+
+    <?php get_template_part( 'template-parts/pagetation' ); ?>
+
+</main><!-- #site-content -->
+
+<?php get_template_part( 'template-parts/footer-menus-widgets' ); ?>
+
+<?php
+get_footer();
